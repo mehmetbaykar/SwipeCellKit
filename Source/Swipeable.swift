@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: - Internal 
+// MARK: - Internal
 
 protocol Swipeable {
     var state: SwipeState { get set }
@@ -26,7 +26,7 @@ protocol Swipeable {
 extension SwipeTableViewCell: Swipeable {}
 extension SwipeCollectionViewCell: Swipeable {}
 
-enum SwipeState: Int {
+public enum SwipeState: Int {
     case center = 0
     case left
     case right
@@ -37,5 +37,5 @@ enum SwipeState: Int {
         self = orientation == .left ? .left : .right
     }
     
-    var isActive: Bool { return self != .center }
+    public var isActive: Bool { return self != .center }
 }
