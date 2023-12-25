@@ -1,3 +1,10 @@
+## Fork version
+Used to resolve conflicts with screen side swipe gestures. 
+（解决与屏幕侧滑手势冲突问题）
+```ruby
+pod 'SwipeCellKit', :git => 'https://github.com/snail-z/SwipeCellKit', :branch => 'develop'
+```
+
 # SwipeCellKit
 
 [![Build Status](https://travis-ci.org/jerkoch/SwipeCellKit.svg)](https://travis-ci.org/jerkoch/SwipeCellKit) 
