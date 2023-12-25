@@ -339,6 +339,8 @@ class SwipeController: NSObject {
         
         swipeable?.actionsView?.removeFromSuperview()
         swipeable?.actionsView = nil
+
+        actionsContainerView?.mask = nil
     }
     
 }
@@ -438,8 +440,6 @@ extension SwipeController: SwipeActionsViewDelegate {
             case .delete:
                 actionsContainerView.mask = actionsView.createDeletionMask()
                 
-                self.delegate?.swipeController(self, didDeleteSwipeableAt: indexPath)
-                
                 UIView.animate(withDuration: 0.3, animations: {
                     guard let actionsContainerView = self.actionsContainerView else { return }
                     
@@ -451,9 +451,9 @@ extension SwipeController: SwipeActionsViewDelegate {
                         actionsView.alpha = 0
                     }
                 }) { [weak self] _ in
-                    self?.actionsContainerView?.mask = nil
-                    self?.resetSwipe()
-                    self?.reset()
+                    guard let `self` = self else { return }
+
+                    self.delegate?.swipeController(self, didDeleteSwipeableAt: indexPath)
                 }
             case .reset:
                 self.hideSwipe(animated: true)
