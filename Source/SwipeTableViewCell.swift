@@ -13,12 +13,15 @@ import UIKit
  
  The default behavior closely matches the stock Mail.app. If you want to customize the transition style (ie. how the action buttons are exposed), or the expansion style (the behavior when the row is swiped passes a defined threshold), you can return the appropriately configured `SwipeOptions` via the `SwipeTableViewCellDelegate` delegate.
  */
+public typealias HandlerBool = (Bool) -> Void
+
 open class SwipeTableViewCell: UITableViewCell {
     
     /// The object that acts as the delegate of the `SwipeTableViewCell`.
     public weak var delegate: SwipeTableViewCellDelegate?
     
     public var state = SwipeState.center
+    public var swipeAction: HandlerBool?
     var actionsView: SwipeActionsView?
     var scrollView: UIScrollView? {
         return tableView
@@ -175,6 +178,7 @@ open class SwipeTableViewCell: UITableViewCell {
                 tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             }
         }
+        swipeAction?(false)
         isPreviouslySelected = false
     }
 }
@@ -186,7 +190,7 @@ extension SwipeTableViewCell: SwipeControllerDelegate {
     
     func swipeController(_ controller: SwipeController, editActionsForSwipeableFor orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard let tableView = tableView, let indexPath = tableView.indexPath(for: self) else { return nil }
-        
+        swipeAction?(true)
         return delegate?.tableView(tableView, editActionsForRowAt: indexPath, for: orientation)
     }
     
