@@ -79,3 +79,9 @@ extension UIPanGestureRecognizer {
         return CGPoint(x: x, y: y)
     }
 }
+
+extension UIApplication {
+    static func topmostViewController()  -> UIViewController? {
+        return UIApplication.shared.keyWindow?.rootViewController
+    }
+}
